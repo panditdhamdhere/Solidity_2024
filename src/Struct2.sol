@@ -12,6 +12,12 @@ contract Struct {
     Employee public employee;
     Employee[] public employees;
 
+    constructor(string memory _name, uint256 _age, address _account) {
+        employee.name = _name;
+        employee.age = _age;
+        employee.account = _account;
+    }
+
     // function
     function setValue() public {
         Employee memory employee1 = Employee(

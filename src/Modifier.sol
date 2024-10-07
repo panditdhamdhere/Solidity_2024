@@ -3,7 +3,6 @@
 pragma solidity ^0.8.26;
 
 contract Modifier {
-
     address public owner = msg.sender;
 
     modifier onlyOwner() {
@@ -12,6 +11,6 @@ contract Modifier {
     }
 
     function addEth() public onlyOwner {
-// eth added
+        // eth added
     }
 }

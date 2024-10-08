@@ -20,18 +20,10 @@ contract Struct {
 
     // function
     function setValue() public {
-        Employee memory employee1 = Employee(
-            "PAndit",
-            27,
-            0x7a3dE6e00725F28d3785d089B55c7Da5C0059fe0
-        );
+        Employee memory employee1 = Employee("PAndit", 27, 0x7a3dE6e00725F28d3785d089B55c7Da5C0059fe0);
         employee = employee1;
 
-        Employee memory employee2 = Employee({
-            name: "Pranav",
-            age: 22,
-            account: msg.sender
-        });
+        Employee memory employee2 = Employee({name: "Pranav", age: 22, account: msg.sender});
 
         Employee memory employee3;
         employee3.name = "Yash";

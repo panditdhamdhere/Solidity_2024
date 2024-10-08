@@ -5,11 +5,11 @@ contract FirstDapp {
     uint256 public numOfNft;
 
     // This function will increment the NFT number;
-   function increment() public {
-    numOfNft++;
-   }
+    function increment() public {
+        numOfNft++;
+    }
 
-   function decrease() public {
-    numOfNft--;
-   }
+    function decrease() public {
+        numOfNft--;
+    }
 }

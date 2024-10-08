@@ -19,18 +19,11 @@ contract Airdrop {
         root = _root;
     }
 
-    function getLeafHash(
-        address to,
-        uint256 amount
-    ) public pure returns (bytes32) {
+    function getLeafHash(address to, uint256 amount) public pure returns (bytes32) {
         return keccak256(abi.encode(to, amount));
     }
 
-    function claim(
-        bytes32[] memory proof,
-        address to,
-        uint256 amount
-    ) external {
+    function claim(bytes32[] memory proof, address to, uint256 amount) external {
         // NOTE: (to, amount) cannot have duplicates
         bytes32 leaf = getLeafHash(to, amount);
 
@@ -49,11 +42,7 @@ pragma solidity ^0.8.26;
 // ERC20 + mint + authorization
 contract Token {
     event Transfer(address indexed from, address indexed to, uint256 value);
-    event Approval(
-        address indexed owner,
-        address indexed spender,
-        uint256 value
-    );
+    event Approval(address indexed owner, address indexed spender, uint256 value);
 
     uint256 public totalSupply;
     mapping(address => uint256) public balanceOf;
@@ -75,10 +64,7 @@ contract Token {
         authorized[addr] = auth;
     }
 
-    function transfer(
-        address recipient,
-        uint256 amount
-    ) external returns (bool) {
+    function transfer(address recipient, uint256 amount) external returns (bool) {
         balanceOf[msg.sender] -= amount;
         balanceOf[recipient] += amount;
         emit Transfer(msg.sender, recipient, amount);
@@ -91,11 +77,7 @@ contract Token {
         return true;
     }
 
-    function transferFrom(
-        address sender,
-        address recipient,
-        uint256 amount
-    ) external returns (bool) {
+    function transferFrom(address sender, address recipient, uint256 amount) external returns (bool) {
         allowance[sender][msg.sender] -= amount;
         balanceOf[sender] -= amount;
         balanceOf[recipient] += amount;

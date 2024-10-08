@@ -10,11 +10,11 @@ contract Visibility {
         return pandit;
     }
 
-    function b() private view returns(uint256) {
+    function b() private view returns (uint256) {
         return dada;
     }
 
-    function c() internal returns(address) {
+    function c() internal returns (address) {
         return tara;
     }
 }

@@ -20,11 +20,7 @@ contract YulIntro {
     }
 
     // Yul types (everything is bytes32)
-    function test_yul_types()
-        public
-        pure
-        returns (bool x, uint256 y, bytes32 z)
-    {
+    function test_yul_types() public pure returns (bool x, uint256 y, bytes32 z) {
         assembly {
             x := 1
             y := 0xaaa
@@ -68,11 +64,7 @@ contract EVMStorageSingleSlot {
         }
     }
 
-    function test_sload()
-        public
-        view
-        returns (uint256 x, uint256 y, bytes32 z)
-    {
+    function test_sload() public view returns (uint256 x, uint256 y, bytes32 z) {
         assembly {
             x := sload(0)
             y := sload(1)
@@ -82,11 +74,7 @@ contract EVMStorageSingleSlot {
         return (x, y, z);
     }
 
-    function test_sload_again()
-        public
-        view
-        returns (uint256 x, uint256 y, bytes32 z)
-    {
+    function test_sload_again() public view returns (uint256 x, uint256 y, bytes32 z) {
         assembly {
             x := sload(s_x.slot)
             y := sload(s_y.slot)
@@ -208,12 +196,7 @@ contract EVMStoragePackedSlot {
     function test_slot_0_offset()
         public
         pure
-        returns (
-            uint256 a_offset,
-            uint256 b_offset,
-            uint256 c_offset,
-            uint256 d_offset
-        )
+        returns (uint256 a_offset, uint256 b_offset, uint256 c_offset, uint256 d_offset)
     {
         // a_offset =  0 =  0 * 8 =   0 bits
         // b_offset = 16 = 16 * 8 = 128 bits
@@ -227,11 +210,7 @@ contract EVMStoragePackedSlot {
         }
     }
 
-    function test_slot_1_offset()
-        public
-        pure
-        returns (uint256 addr_offset, uint256 x_offset, uint256 y_offset)
-    {
+    function test_slot_1_offset() public pure returns (uint256 addr_offset, uint256 x_offset, uint256 y_offset) {
         // addr_offset = 0
         // x_offset = 20
         // y_offset = 28
@@ -313,11 +292,7 @@ contract EVMStorageStruct {
     // slot 1, 2, 3
     MultipleSlots public multi = MultipleSlots({a: 11, b: 22, c: 33});
 
-    function test_get_single_slot_struct()
-        public
-        view
-        returns (uint128 x, uint64 y, uint64 z)
-    {
+    function test_get_single_slot_struct() public view returns (uint128 x, uint64 y, uint64 z) {
         assembly {
             let s := sload(0)
             //  z |  y | x
@@ -329,11 +304,7 @@ contract EVMStorageStruct {
         }
     }
 
-    function test_get_multiple_slots_struct()
-        public
-        view
-        returns (uint256 a, uint256 b, uint256 c)
-    {
+    function test_get_multiple_slots_struct() public view returns (uint256 a, uint256 b, uint256 c) {
         assembly {
             a := sload(1)
             b := sload(2)
@@ -412,11 +383,7 @@ contract EVMStorageDynamicArray {
     // keccak256(1) + 1 / 2 * index
     uint128[] private arr_2 = [1, 2, 3];
 
-    function test_arr(uint256 slot, uint256 i)
-        public
-        view
-        returns (uint256 v, bytes32 b32, uint256 len)
-    {
+    function test_arr(uint256 slot, uint256 i) public view returns (uint256 v, bytes32 b32, uint256 len) {
         bytes32 start = keccak256(abi.encode(slot));
 
         assembly {
@@ -466,11 +433,7 @@ contract EVMStorageNestedMapping {
         map[ADDR_3][ADDR_1] = 33;
     }
 
-    function test_nested_mapping(address key_0, address key_1)
-        public
-        view
-        returns (uint256 v)
-    {
+    function test_nested_mapping(address key_0, address key_1) public view returns (uint256 v) {
         uint256 slot = 0;
         bytes32 s0 = keccak256(abi.encode(key_0, slot));
         bytes32 s1 = keccak256(abi.encode(key_1, s0));
@@ -499,11 +462,7 @@ contract EVMStorageMappingArray {
         map[ADDR_2].push(66);
     }
 
-    function test_map_arr(address addr, uint256 i)
-        public
-        view
-        returns (uint256 v, uint256 len)
-    {
+    function test_map_arr(address addr, uint256 i) public view returns (uint256 v, uint256 len) {
         uint256 map_slot = 0;
         bytes32 map_hash = keccak256(abi.encode(addr, map_slot));
         bytes32 arr_hash = keccak256(abi.encode(map_hash));
@@ -532,11 +491,7 @@ contract EVMStorageDynamicArrayStruct {
         arr.push(Point(77, 88, 99));
     }
 
-    function test_struct_arr(uint256 i)
-        public
-        view
-        returns (uint256 x, uint128 y, uint128 z, uint256 len)
-    {
+    function test_struct_arr(uint256 i) public view returns (uint256 x, uint128 y, uint128 z, uint256 len) {
         uint256 slot = 0;
         bytes32 start = keccak256(abi.encode(slot));
 
